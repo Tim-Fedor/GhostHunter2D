@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using GhostHunter;
 
-public class EventSystemController : MonoBehaviour
+public class EventSystemController : MonoBehaviour, IEventSystemController
 {
-    public static EventSystemController Instance;
+    public static IEventSystemController Instance;
     private Dictionary<string, List<Action>> _events;
 
 

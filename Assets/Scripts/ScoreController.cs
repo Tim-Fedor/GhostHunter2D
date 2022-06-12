@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using GhostHunter;
 using TMPro;
 using UnityEngine;
+using Zenject;
 
 public class ScoreController : MonoBehaviour
 {
     [SerializeField] 
     private TMP_Text _text;
     private int _score;
-    private void Start()
+
+    [Inject]
+    private void Construct(IEventSystemController eventSystemController)
     {
-        EventSystemController.Instance.AddListener(EventConstants.DESTROY_ENEMY, UpdateScore);
+        eventSystemController.AddListener(EventConstants.DESTROY_ENEMY, UpdateScore);
     }
     
     private void UpdateScore()

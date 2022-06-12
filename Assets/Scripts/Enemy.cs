@@ -1,10 +1,20 @@
+using GhostHunter;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class Enemy : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] 
     private float moveSpeed;
+    
+    private IEventSystemController _eventSystemController; 
+
+    [Inject]
+    private void Construct(IEventSystemController eventSystemController)
+    {
+        _eventSystemController = eventSystemController;
+    }
 
     public void Update()
     {
@@ -13,7 +23,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        EventSystemController.Instance.DispatchEvent(EventConstants.DESTROY_ENEMY);
+        _eventSystemController.DispatchEvent(EventConstants.DESTROY_ENEMY);
         Destroy(gameObject);
     }
 }
