@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EnemyConfigInstaller
   m_EditorClassIdentifier: 
   enemyConfig:
-    maxNumberOfEnemy: 10
+    maxNumberOfEnemy: 5

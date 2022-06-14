@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class EnemyFactory : MonoBehaviour, IEnemyFactory
 {
     private const string EnemyPath = "Enemy";
-    private const int maxSpawnRange = 3;
+    private const float maxSpawnRange = 2.5f;
     private readonly Vector3 _spawnPoint = new Vector3(0, -6, 0);
     
     private EnemyConfig _enemyConfig;
