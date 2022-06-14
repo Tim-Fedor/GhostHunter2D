@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GhostHunter
+namespace com.GhostHunter.BaseSystems
 {
     public interface IEventSystemService
     {
