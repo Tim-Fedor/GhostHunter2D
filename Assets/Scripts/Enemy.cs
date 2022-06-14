@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
     private IEventSystemService _eventSystemService;
     private PathPoints _path;
     private Vector3 _moveDirection;
-    private float _diff;
+    private bool _isKilled;
 
     [Inject]
     private void Construct(IEventSystemService eventSystemService, PathPoints path)
@@ -38,11 +38,12 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        _isKilled = true;
         Destroy(gameObject);
     }
 
     private void OnDestroy()
     {
-        _eventSystemService.DispatchEvent(EventConstants.DESTROY_ENEMY);
+        _eventSystemService.DispatchEvent(EventConstants.DESTROY_ENEMY, _isKilled);
     }
 }

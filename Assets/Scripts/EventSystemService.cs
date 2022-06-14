@@ -5,14 +5,14 @@ using GhostHunter;
 
 public class EventSystemService : MonoBehaviour, IEventSystemService
 {
-    private Dictionary<string, List<Action>> _events;
+    private Dictionary<string, List<Action<object[]>>> _events;
 
     public void Awake()
     {
-        _events = new Dictionary<string, List<Action>>();
+        _events = new Dictionary<string, List<Action<object[]>>>();
     }
 
-    public void AddListener(string eventName, Action listener)
+    public void AddListener(string eventName, Action<object[]> listener)
     {
         if (!_events.ContainsKey(eventName))
         {
@@ -21,7 +21,7 @@ public class EventSystemService : MonoBehaviour, IEventSystemService
         AddActionToListeners(eventName, listener);
     }
     
-    public void RemoveListener(string eventName, Action listener)
+    public void RemoveListener(string eventName, Action<object[]> listener)
     {
         if (!_events.ContainsKey(eventName))
         {
@@ -30,13 +30,13 @@ public class EventSystemService : MonoBehaviour, IEventSystemService
         RemoveActionFromListeners(eventName, listener);
     }    
     
-    public void DispatchEvent(string eventName)
+    public void DispatchEvent(string eventName, params object[] data)
     {
         if (!_events.ContainsKey(eventName))
         {
             return;
         }
-        List<Action> allActions;
+        List<Action<object[]>> allActions;
         _events.TryGetValue(eventName, out allActions);
         if (allActions == null)
         { 
@@ -45,24 +45,24 @@ public class EventSystemService : MonoBehaviour, IEventSystemService
 
         foreach (var action in allActions)
         {
-            action?.Invoke();
+            action?.Invoke(data);
         }
     }
     
     private void CreateNewPair(string eventName)
     {
-        List<Action> value = new List<Action>();
+        List<Action<object[]>> value = new List<Action<object[]>>();
         _events.Add(eventName, value);
     }
     
-    private void AddActionToListeners(string eventName, Action newListener)
+    private void AddActionToListeners(string eventName, Action<object[]> newListener)
     {
-        List<Action> allActions;
+        List<Action<object[]>> allActions;
         _events.TryGetValue(eventName, out allActions);
         if (allActions == null)
         {
             Debug.LogWarning($"Can`t get ActionList from {eventName}");
-            allActions = new List<Action>();
+            allActions = new List<Action<object[]>>();
         }
 
         if (allActions.Contains(newListener))
@@ -73,9 +73,9 @@ public class EventSystemService : MonoBehaviour, IEventSystemService
         allActions.Add(newListener);
     }    
     
-    private void RemoveActionFromListeners(string eventName, Action listener)
+    private void RemoveActionFromListeners(string eventName, Action<object[]> listener)
     {
-        List<Action> allActions;
+        List<Action<object[]>> allActions;
         _events.TryGetValue(eventName, out allActions);
         if (allActions == null)
         {

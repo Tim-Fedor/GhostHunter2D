@@ -35,7 +35,7 @@ public class EnemyFactory : MonoBehaviour, IEnemyFactory
         StartWork();
     }
 
-    private void UpdateCounter()
+    private void UpdateCounter(object[] data)
     {
         if (_enemyCounter > 0)
         {

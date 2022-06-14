@@ -17,9 +17,18 @@ public class ScoreCounter : MonoBehaviour
         eventSystemService.AddListener(EventConstants.DESTROY_ENEMY, UpdateScore);
     }
     
-    private void UpdateScore()
+    private void UpdateScore(object[] data)
     {
-        _score++;
-        _text.text = _score.ToString();
+        if (data == null || data.Length < 1)
+        {
+            return;
+        }
+
+        if (data[0] is bool && (bool)data[0]) 
+        {
+            _score++;
+            _text.text = _score.ToString();
+        }
+
     }
 }
