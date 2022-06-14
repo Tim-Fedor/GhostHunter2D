@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using GhostHunter;
 
-public class EventSystemController : MonoBehaviour, IEventSystemController
+public class EventSystemService : MonoBehaviour, IEventSystemService
 {
-    public static IEventSystemController Instance;
     private Dictionary<string, List<Action>> _events;
-
 
     public void Awake()
     {
-        Instance = this;
         _events = new Dictionary<string, List<Action>>();
     }
 

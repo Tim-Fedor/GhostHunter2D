@@ -4,12 +4,12 @@ using Zenject;
 
 public class EventSystemInstaller : MonoInstaller
 {
-    public GameObject EventSystemObject;
+    [SerializeField] private GameObject EventSystemObject;
     public override void InstallBindings()
     {
-        IEventSystemController eventSystemController =
-            Container.InstantiatePrefabForComponent<IEventSystemController>(EventSystemObject);
+        IEventSystemService eventSystemService =
+            Container.InstantiatePrefabForComponent<IEventSystemService>(EventSystemObject);
 
-        Container.Bind<IEventSystemController>().FromInstance(eventSystemController).AsSingle();
+        Container.Bind<IEventSystemService>().FromInstance(eventSystemService).AsSingle().NonLazy();
     }
 }

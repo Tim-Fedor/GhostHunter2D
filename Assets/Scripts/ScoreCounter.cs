@@ -5,16 +5,16 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class ScoreController : MonoBehaviour
+public class ScoreCounter : MonoBehaviour
 {
     [SerializeField] 
     private TMP_Text _text;
     private int _score;
 
     [Inject]
-    private void Construct(IEventSystemController eventSystemController)
+    private void Construct(IEventSystemService eventSystemService)
     {
-        eventSystemController.AddListener(EventConstants.DESTROY_ENEMY, UpdateScore);
+        eventSystemService.AddListener(EventConstants.DESTROY_ENEMY, UpdateScore);
     }
     
     private void UpdateScore()

@@ -8,12 +8,12 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
     [SerializeField] 
     private float moveSpeed;
     
-    private IEventSystemController _eventSystemController; 
+    private IEventSystemService _eventSystemService; 
 
     [Inject]
-    private void Construct(IEventSystemController eventSystemController)
+    private void Construct(IEventSystemService eventSystemService)
     {
-        _eventSystemController = eventSystemController;
+        _eventSystemService = eventSystemService;
     }
 
     public void Update()
@@ -23,7 +23,7 @@ public class Enemy : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        _eventSystemController.DispatchEvent(EventConstants.DESTROY_ENEMY);
+        _eventSystemService.DispatchEvent(EventConstants.DESTROY_ENEMY);
         Destroy(gameObject);
     }
 }

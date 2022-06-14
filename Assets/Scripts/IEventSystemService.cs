@@ -2,7 +2,7 @@
 
 namespace GhostHunter
 {
-    public interface IEventSystemController
+    public interface IEventSystemService
     {
         void AddListener(string eventName, Action listener);
         void RemoveListener(string eventName, Action listener);
